@@ -1,0 +1,10 @@
+﻿  main.cpp
+  ode_solver.cpp
+  opt_alg.cpp
+C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(68,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(203,13): error C3861: 'ident_mat': identifier not found
+C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(225,44): error C3861: 'ident_mat': identifier not found
+C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(235,8): error C3861: 'fit_fun': identifier not found
+C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(235,20): error C3861: 'fit_fun': identifier not found
+  solution.cpp
+  Generating Code...
