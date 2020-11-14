@@ -27,6 +27,9 @@
     <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\ode_solver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp">

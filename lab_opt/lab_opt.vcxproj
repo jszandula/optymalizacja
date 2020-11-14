@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\lab_no.h" />
     <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\matrix.h" />
+    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\ode_solver.h" />
     <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.h" />
     <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\solution.h" />
   </ItemGroup>
