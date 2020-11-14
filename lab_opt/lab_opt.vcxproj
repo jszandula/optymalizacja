@@ -19,18 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\lab_no.h" />
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\matrix.h" />
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\ode_solver.h" />
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.h" />
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\solution.h" />
+    <ClInclude Include="opt_alg.h" />
+    <ClInclude Include="lab_no.h" />
+    <ClInclude Include="matrix.h" />
+    <ClInclude Include="ode_solver.h" />
+    <ClInclude Include="solution.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\main.cpp" />
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\matrix.cpp" />
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\ode_solver.cpp" />
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp" />
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\solution.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="ode_solver.cpp" />
+    <ClCompile Include="opt_alg.cpp" />
+    <ClCompile Include="solution.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

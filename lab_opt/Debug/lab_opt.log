@@ -1,10 +1,10 @@
 ﻿  main.cpp
+D:\Studia\OPT\lab_opt\lab_opt\main.cpp(143,14): warning C4551: function call missing argument list
+  matrix.cpp
+D:\Studia\OPT\lab_opt\lab_opt\matrix.cpp(274,7): warning C4101: 'z': unreferenced local variable
   ode_solver.cpp
   opt_alg.cpp
-C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(68,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(203,13): error C3861: 'ident_mat': identifier not found
-C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(225,44): error C3861: 'ident_mat': identifier not found
-C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(235,8): error C3861: 'fit_fun': identifier not found
-C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp(235,20): error C3861: 'fit_fun': identifier not found
+D:\Studia\OPT\lab_opt\lab_opt\opt_alg.cpp(68,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   solution.cpp
   Generating Code...
+  lab_opt.vcxproj -> D:\Studia\OPT\lab_opt\Debug\lab_opt.exe

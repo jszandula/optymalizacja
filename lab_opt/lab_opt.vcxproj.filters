@@ -15,36 +15,36 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.h">
+    <ClInclude Include="lab_no.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\solution.h">
+    <ClInclude Include="matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\lab_no.h">
+    <ClInclude Include="ode_solver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\matrix.h">
+    <ClInclude Include="opt_alg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\julia\Downloads\optymalizacja_kradziona\ode_solver.h">
+    <ClInclude Include="solution.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\opt_alg.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\solution.cpp">
+    <ClCompile Include="matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\main.cpp">
+    <ClCompile Include="ode_solver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\matrix.cpp">
+    <ClCompile Include="opt_alg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\julia\Downloads\optymalizacja_kradziona\ode_solver.cpp">
+    <ClCompile Include="solution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
