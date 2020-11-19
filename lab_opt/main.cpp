@@ -109,22 +109,33 @@ int main()
 		static default_random_engine generate(unsigned(time(nullptr)));
 		uniform_real_distribution<double> distribution(-1, 1);
 
-		for (int i = 0; i < 100; i++) {
-			x0(0) = distribution(generate);
-			x0(1) = distribution(generate);
-			cout << "Pkt pocz.: " << x0 << endl;
+		//for (int i = 0; i < 100; i++) {
+		x0(0) = 2.76993;//distribution(generate);
+		x0(1) = 3.18721; //distribution(generate);
+			std::cout << "Pkt pocz.: " << x0 << endl;
 			x1_0 << x0(0) << endl;
 			x2_0 << x0(1) << endl;
 
 			s = 1.0;
 			alfa = 0.5;
-			cout << "HJ\n";
+			std::cout << "HJ\n";
 			solution x_HJ = HJ(x0, s, alfa, epsilon, Nmax);
-			cout << x_HJ << endl;
+			std::cout << x_HJ << endl;
 			HJ_x1 << x_HJ.x(0) << endl;
 			HJ_x2 << x_HJ.x(1) << endl;
 			HJ_y << x_HJ.y << endl;
 			HJ_calls << x_HJ.f_calls << endl;
+
+			matrix Y0(2, 1);
+			/*matrix* Y = solve_ode(0, 0.1, 100, Y0, x_HJ.x);
+			ofstream S("Symulacja_HJ.txt");
+			ofstream Sa("Symulacja_HJ_a.txt");
+			for (int i = 0; i < 1000; i++) {
+				Sa << Y[1][0](i) << endl;
+				S << Y[1][1](i) << endl;
+
+			}*/
+
 
 			solution::clear_calls();
 
@@ -132,21 +143,34 @@ int main()
 			s0(1) = s;
 			alfa = 2.0;
 			beta = 0.5;
-			cout << "Rosenbrock\n";
+			std::cout << "Rosenbrock\n";
 			solution x_Rosen = Rosen(x0, s0, alfa, beta, epsilon, Nmax);
-			cout << x_Rosen;
+			std::cout << x_Rosen;
 			Rosen_x1 << x_Rosen.x(0) << endl;
 			Rosen_x2 << x_Rosen.x(1) << endl;
 			Rosen_y << x_Rosen.y << endl;
 			Rosen_calls << x_Rosen.f_calls << endl;
 
+			
+			matrix* Y = solve_ode(0, 0.1, 100, Y0, x_Rosen.x);
+			ofstream SR("Symulacja_R.txt");
+			ofstream SRa("Symulacja_R_a.txt");
+			for (int i = 0; i < 1000; i++) {
+				SRa << Y[1][0](i) << endl;
+				SR << Y[1][1](i) << endl;
+
+
+			}
+
 			solution::clear_calls;
-		}
+		//}
+
+	
 #endif
 	}
 	catch (char* EX_INFO)
 	{
-		cout << EX_INFO << endl;
+		std::cout << EX_INFO << endl;
 	}
 	system("pause");
 	return 0;

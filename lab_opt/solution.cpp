@@ -74,7 +74,20 @@ void solution::fit_fun(matrix O)
 
 	}
 #elif LAB_NO==3
-	y = pow(x(0), 2) + pow(x(1), 2) - cos(2.5 * M_PI * x(0)) - cos(2.5 * M_PI * x(1)) + 2;
+	double a_ref = 3.14, o_ref = 0;
+	matrix Y0(2, 1);
+	matrix* Y = solve_ode(0, 0.1, 100, Y0, x); // x = [k1,k2]
+
+	int* n = get_size(Y[1]);
+	y(0) = 0;
+	for (int i = 0; i < n[0]; ++i)
+	{
+
+		y(0) = y(0) + 10 * pow(a_ref - Y[1](i, 0), 2) + pow(o_ref - Y[1](i, 1), 2) + pow(x(0) * (a_ref - Y[1](i, 0)) + x(1) * (o_ref - Y[1](i, 1)), 2);
+	}
+
+	y(0) = y(0) * 0.1;
+	/*y = pow(x(0), 2) + pow(x(1), 2) - cos(2.5 * M_PI * x(0)) - cos(2.5 * M_PI * x(1)) + 2;*/
 	++f_calls;
 #endif
 }
