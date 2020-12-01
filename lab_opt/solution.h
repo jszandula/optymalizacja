@@ -22,6 +22,8 @@ public:
 	solution(const matrix&);
 	solution(double*, int);
 	void fit_fun(matrix = 0.0);
+	void fit_fun_outside(matrix A = 0.0);
+	void fit_fun_inside(matrix A = 0.0);
 	void grad(matrix = 0.0);
 	void hess(matrix = 0.0);
 };

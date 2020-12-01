@@ -165,7 +165,76 @@ int main()
 			solution::clear_calls;
 		//}
 
-	
+#elif LAB_NO==4
+		ofstream f("lab4_results.csv");
+		double epsilon = 1e-5, c = 1000, a;
+		int Nmax = 10000;
+		matrix x0(2, 1);
+		random_device rd;
+		a = 4;
+		for (size_t i = 0; i < 100; i++)
+		{
+			cout << "a = " << a << " ; iteration: " << i << endl;
+			do
+			{
+				x0(0) = 4.0*rd() / rd.max() + 1;
+				x0(1) = 4.0*rd() / rd.max() + 1;
+			} while (sqrt(pow(x0(0), 2) + pow(x0(1), 2)) - a > 0);
+			solution opt_out = pen_outside(x0, c, a, epsilon, Nmax);
+			double r_out = sqrt(pow(opt_out.x(0), 2) + pow(opt_out.x(1), 2));
+			double f_calls_out = opt_out.f_calls;
+			solution::clear_calls();
+			solution opt_in = pen_inside(x0, c, a, epsilon, Nmax);
+			double r_in = sqrt(pow(opt_in.x(0), 2) + pow(opt_in.x(1), 2));
+			double f_calls_in = opt_in.f_calls;
+			solution::clear_calls();
+			f << x0(0) << ";" << x0(1) << ";" << opt_out.x(0) << ";" << opt_out.x(1) << ";" << r_out << ";" << opt_out.y(0) << ";" << f_calls_out
+			 << ";" << opt_in.x(0) << ";" << opt_in.x(1) << ";" << r_in << ";" << opt_in.y(0) << ";" << f_calls_in << ";" << endl;
+		}
+		a = 4.4934;
+		for (size_t i = 0; i < 100; i++)
+		{
+			cout << "a = " << a << " ; iteration: " << i << endl;
+			do
+			{
+				x0(0) = 4.0*rd() / rd.max() + 1;
+				x0(1) = 4.0*rd() / rd.max() + 1;
+			} while (sqrt(pow(x0(0), 2) + pow(x0(1), 2)) - a > 0);
+			solution opt_out = pen_outside(x0, c, a, epsilon, Nmax);
+			double r_out = sqrt(pow(opt_out.x(0), 2) + pow(opt_out.x(1), 2));
+			r_out_file << r_out << endl;
+			double f_calls_out = opt_out.f_calls;
+			solution::clear_calls();
+			solution opt_in = pen_inside(x0, c, a, epsilon, Nmax);
+			double r_in = sqrt(pow(opt_in.x(0), 2) + pow(opt_in.x(1), 2));
+			r_in_file << r_in << endl;
+			double f_calls_in =opt_in.f_calls;
+			solution::clear_calls();
+			f << x0(0) << ";" << x0(1) << ";" << opt_out.x(0) << ";" << opt_out.x(1) << ";" << r_out << ";" << opt_out.y(0) << ";" << f_calls_out
+			  << ";" << opt_in.x(0) << ";" << opt_in.x(1) << ";" << r_in << ";" << opt_in.y(0) << ";" << f_calls_in << ";" << endl;
+		}
+		a = 5;
+		for (size_t i = 0; i < 100; i++)
+		{
+			cout << "a = " << a << " ; iteration: " << i << endl;
+			do
+			{
+				x0(0) = 4.0*rd() / rd.max() + 1;
+				x0(1) = 4.0*rd() / rd.max() + 1;
+			} while (sqrt(pow(x0(0), 2) + pow(x0(1), 2)) - a > 0);
+			solution opt_out = pen_outside(x0, c, a, epsilon, Nmax);
+			double r_out = sqrt(pow(opt_out.x(0), 2) + pow(opt_out.x(1), 2));
+			r_out_file << r_out << endl;
+			double f_calls_out = opt_out.f_calls;
+			solution::clear_calls();
+			solution opt_in = pen_inside(x0, c, a, epsilon, Nmax);
+			double r_in = sqrt(pow(opt_in.x(0), 2) + pow(opt_in.x(1), 2));
+			r_in_file << r_in << endl;
+			double f_calls_in = opt_in.f_calls;
+			solution::clear_calls();
+			f << x0(0) << ";" << x0(1) << ";" << opt_out.x(0) << ";" << opt_out.x(1) << ";" << r_out << ";" << opt_out.y(0) << ";" << f_calls_out
+			  << ";" << opt_in.x(0) << ";" << opt_in.x(1) << ";" << r_in << ";" << opt_in.y(0) << ";" << f_calls_in << ";" << endl;
+		}
 #endif
 	}
 	catch (char* EX_INFO)

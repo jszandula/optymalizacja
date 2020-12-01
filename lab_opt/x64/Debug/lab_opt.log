@@ -1,1 +1,9 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Platform.targets(67,5): error MSB8020: Nie można odnaleźć narzędzi kompilacji dla v142 (zestaw narzędzi platformy = „v142”). Aby wykonać kompilację przy użyciu narzędzi kompilacji v142, zainstaluj narzędzia kompilacji v142. Możesz też wykonać aktualizację do najnowszych narzędzi programu Visual Studio, wybierając menu Projekt lub klikając prawym przyciskiem myszy rozwiązanie, a następnie wybierając polecenie „Wskaż ponownie rozwiązanie...”.
+﻿  main.cpp
+  matrix.cpp
+D:\Studia\OPT\optymalizacja\lab_opt\matrix.cpp(274,7): warning C4101: 'z': unreferenced local variable
+  ode_solver.cpp
+  opt_alg.cpp
+D:\Studia\OPT\optymalizacja\lab_opt\opt_alg.cpp(68,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  solution.cpp
+  Generating Code...
+  lab_opt.vcxproj -> D:\Studia\OPT\optymalizacja\x64\Debug\lab_opt.exe

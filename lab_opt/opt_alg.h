@@ -19,8 +19,10 @@ solution HJ_trial(solution XB, double s, matrix O = 0.0);
 solution Rosen(matrix x0, matrix s0, double alfa, double beta, double epsilon, int Nmax, matrix O = 0.0);
 #endif
 #if LAB_NO>3
-solution pen(matrix x0, double c, double dc, double epsilon, int Nmax, matrix O = 0.0);
-solution sym_NM(matrix x0, double s, double alfa, double beta, double gama, double delta, double epsilon, int Nmax, matrix O = 0.0);
+solution sym_NM_outside(matrix x0, double s, double alfa, double beta, double gama, double delta, double epsilon, double Nmax, matrix A = 0.0);
+solution sym_NM_inside(matrix x0, double s, double alfa, double beta, double gama, double delta, double epsilon, double Nmax, matrix A = 0.0);
+solution pen_outside(matrix x0, double c, double a, double epsilon, int Nmax);
+solution pen_inside(matrix x0, double c, double a, double epsilon, int Nmax);
 #endif
 #if LAB_NO>4
 solution SD(matrix x0, double h0, double epsilon, int Nmax, matrix O = 0.0);

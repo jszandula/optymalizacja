@@ -92,6 +92,42 @@ void solution::fit_fun(matrix O)
 #endif
 }
 
+void solution::fit_fun_outside(matrix A)
+{
+	double arg = M_PI * sqrt(pow(x(0) / M_PI, 2) + pow(x(1) / M_PI, 2));
+	y = sin(arg) / arg;
+
+	if (-x(0) + 1 > 0)
+		y = y + A(0) * pow(-x(0) + 1, 2);
+	if (-x(1) + 1 > 0)
+		y = y + A(0) * pow(-x(1) + 1, 2);
+	if (sqrt(pow(x(0), 2) + pow(x(1), 2)) - A(1) > 0)
+		y = y + A(0) * pow(sqrt(pow(x(0), 2) + pow(x(1), 2)) - A(1), 2);
+
+	++f_calls;
+}
+
+void solution::fit_fun_inside(matrix A)
+{
+	double arg = M_PI * sqrt(pow(x(0) / M_PI, 2) + pow(x(1) / M_PI, 2));
+	y = sin(arg) / arg;
+
+	if (-x(0) + 1 > 0)
+		y = 1e10;
+	else
+		y = y - A(0) / (-x(0) + 1);
+	if (-x(1) + 1 > 0)
+		y = 1e10;
+	else
+		y = y - A(0) / (-x(1) + 1);
+	if (sqrt(pow(x(0), 2) + pow(x(1), 2)) - A(1) > 0)
+		y = 1e10;
+	else
+		y = y - A(0) / (sqrt(pow(x(0), 2) + pow(x(1), 2)) - A(1));
+
+	++f_calls;
+}
+
 void solution::grad(matrix O)
 {
 	g = NAN;
