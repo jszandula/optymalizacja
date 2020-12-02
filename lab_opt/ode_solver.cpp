@@ -38,7 +38,7 @@ matrix* solve_ode(double t0, double dt, double tend, const matrix& Y0, matrix P)
 
 matrix diff(double t, const matrix& Y, matrix P)
 {
-#if LA3B_NO==1
+#if LAB_NO==1
 	double m = 5, b = 1.5, k = 1, f = 0;
 	matrix dY(Y);
 	dY(0) = Y(1);
@@ -108,6 +108,22 @@ matrix diff(double t, const matrix& Y, matrix P)
 	dY(1) = (k1 * (a_ref - Y(0)) + k2 * (o_ref - Y(1)) - b * Y(1)) / I;
 
 	return dY;
+#elif LAB_NO == 4
+	double C = 0.47, r = 0.12, m = 0.6, ro = 1.2, g = 9.81;
+	double S = 3.1415 * r * r;
+	double Dx = 0.5 * C * ro * S * Y(1) * abs(Y(1));
+	double Dy = 0.5 * C * ro * S * Y(3) * abs(Y(3));
+	//p(0) - omega
+	double Fmx = 3.1415 * ro * Y(3) * P(0) * pow(r, 3);
+	double Fmy = 3.1415 * ro * Y(1) * P(0) * pow(r, 3);
+	matrix dY(Y);
+	dY(0) = Y(1);
+	dY(1) = (-Dx - Fmx) / m;
+	dY(2) = Y(3);
+	dY(3) = (-(m * g) - Dy - Fmy) / m;
+
+	return dY;
+
 #else
 	matrix dY;
 	return dY;

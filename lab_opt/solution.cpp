@@ -89,12 +89,70 @@ void solution::fit_fun(matrix O)
 	y(0) = y(0) * 0.1;
 	/*y = pow(x(0), 2) + pow(x(1), 2) - cos(2.5 * M_PI * x(0)) - cos(2.5 * M_PI * x(1)) + 2;*/
 	++f_calls;
+#elif LAB_NO == 4
+	matrix Y0(4, 1);
+	Y0(0) = 0;
+	Y0(1) = x(0);
+	Y0(2) = 100;
+	Y0(3) = 0;
+	matrix* Y = solve_ode(0, 0.01, 7, Y0, x(1));
+	double x0, x50;
+
+	for (int i = 0; i < *get_size(Y[1]) - 1; i++) {
+		if (fabs(Y[1](i, 2) - 50.0) < fabs(Y[1](i + 1, 2) - 50.0) && Y[1](i, 2) < 52 && Y[1](i, 2) > 48) {
+			x50 = Y[1](i, 0);
+		}
+		if (Y[1](i, 2) > 0 && Y[1](i + 1, 2) < 0) {
+			if (fabs(Y[1](i, 2)) < fabs(Y[1](i + 1, 2))) {
+				x0 = Y[1](i, 0);
+			}
+			else {
+				x0 = Y[1](i + 1, 0);
+			}
+		}
+	}
+	y = -x0;
+
+
+
+	double g1, g2, g3, g4, g5, g6;
+	g1 = -x(0) - 10;
+	g2 = x(0) - 10;
+	g3 = -x(1) - 20;
+	g4 = x(1) - 20;
+	g5 = -x50 + 4;
+	g6 = x50 - 6;
+	if (g1 > 0) {
+		y = y + pow(g1, 2);
+	}
+	if (g2 > 0) {
+		y = y + pow(g2, 2);
+	}
+	if (g3 > 0) {
+		y = y + pow(g3, 2);
+	}
+	if (g4 > 0) {
+		y = y + pow(g4, 2);
+	}
+	if (g5 > 0) {
+		y = y + pow(g5, 2);
+	}
+	if (g6 > 0) {
+		y = y + pow(g6, 2);
+	}
+	ofstream sym1("symulacja.txt");
+	ofstream sym2("symulacja2.txt");
+	for (int i = 0; i < *get_size(Y[1]); i++) {
+		sym1 << Y[1](i, 0) << endl; //x
+		sym2 << Y[1](i, 2) << endl; //y
+	}
+	++f_calls;
 #endif
 }
 
 void solution::fit_fun_outside(matrix A)
 {
-	double arg = M_PI * sqrt(pow(x(0) / M_PI, 2) + pow(x(1) / M_PI, 2));
+	/*double arg = M_PI * sqrt(pow(x(0) / M_PI, 2) + pow(x(1) / M_PI, 2));
 	y = sin(arg) / arg;
 
 	if (-x(0) + 1 > 0)
@@ -104,11 +162,72 @@ void solution::fit_fun_outside(matrix A)
 	if (sqrt(pow(x(0), 2) + pow(x(1), 2)) - A(1) > 0)
 		y = y + A(0) * pow(sqrt(pow(x(0), 2) + pow(x(1), 2)) - A(1), 2);
 
+	++f_calls;*/
+
+
+
+	matrix Y0(4, 1);
+	Y0(0) = 0;
+	Y0(1) = x(0);
+	Y0(2) = 100;
+	Y0(3) = 0;
+	matrix* Y = solve_ode(0, 0.01, 7, Y0, x(1));
+	double x0, x50;
+
+	for (int i = 0; i < *get_size(Y[1]) - 1; i++) {
+		if (fabs(Y[1](i, 2) - 50.0) < fabs(Y[1](i + 1, 2) - 50.0) && Y[1](i, 2) < 52 && Y[1](i, 2) > 48) {
+			x50 = Y[1](i, 0);
+		}
+		if (Y[1](i, 2) > 0 && Y[1](i + 1, 2) < 0) {
+			if (fabs(Y[1](i, 2)) < fabs(Y[1](i + 1, 2))) {
+				x0 = Y[1](i, 0);
+			}
+			else {
+				x0 = Y[1](i + 1, 0);
+			}
+		}
+	}
+	y = -x0;
+
+
+
+	double g1, g2, g3, g4, g5, g6;
+	g1 = -x(0) - 10;
+	g2 = x(0) - 10;
+	g3 = -x(1) - 20;
+	g4 = x(1) - 20;
+	g5 = -x50 + 4;
+	g6 = x50 - 6;
+	if (g1 > 0) {
+		y = y + pow(g1, 2);
+	}
+	if (g2 > 0) {
+		y = y + pow(g2, 2);
+	}
+	if (g3 > 0) {
+		y = y + pow(g3, 2);
+	}
+	if (g4 > 0) {
+		y = y + pow(g4, 2);
+	}
+	if (g5 > 0) {
+		y = y + pow(g5, 2);
+	}
+	if (g6 > 0) {
+		y = y + pow(g6, 2);
+	}
+	ofstream sym("symulacja.txt");
+	sym << "t x y" << endl;
+	for (int i = 0; i < *get_size(Y[1]); i++) {
+		sym << Y[1](i, 0) << " " << Y[1](i, 2) << endl;
+	}
+
 	++f_calls;
 }
 
 void solution::fit_fun_inside(matrix A)
 {
+
 	double arg = M_PI * sqrt(pow(x(0) / M_PI, 2) + pow(x(1) / M_PI, 2));
 	y = sin(arg) / arg;
 

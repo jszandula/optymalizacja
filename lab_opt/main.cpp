@@ -167,11 +167,17 @@ int main()
 
 #elif LAB_NO==4
 		ofstream f("lab4_results.csv");
+		
+		ofstream r_out_file("niewiem1.txt");
+		ofstream r_in_file("niewiem2.txt");
+		
+		/*
 		double epsilon = 1e-5, c = 1000, a;
 		int Nmax = 10000;
 		matrix x0(2, 1);
 		random_device rd;
-		a = 4;
+		a = 4;*/
+		/*
 		for (size_t i = 0; i < 100; i++)
 		{
 			cout << "a = " << a << " ; iteration: " << i << endl;
@@ -234,7 +240,22 @@ int main()
 			solution::clear_calls();
 			f << x0(0) << ";" << x0(1) << ";" << opt_out.x(0) << ";" << opt_out.x(1) << ";" << r_out << ";" << opt_out.y(0) << ";" << f_calls_out
 			  << ";" << opt_in.x(0) << ";" << opt_in.x(1) << ";" << r_in << ";" << opt_in.y(0) << ";" << f_calls_in << ";" << endl;
-		}
+		}*/
+
+		matrix x0(2, 1);
+		x0(0) = 2.1;
+		x0(1) = 6;
+		double c0 = 1.0, dc = 2.0, epsilon = 0.0001;
+		int Nmax = 5000;
+		matrix x1(2, 1);
+		solution sympleks = pen(x0, c0, dc, epsilon, Nmax, x1);
+		
+		std::cout << "Optymalne V0x= " << sympleks.x(0) << "\nOptymalna omega: " << sympleks.x(1);
+		std::cout << endl << "x koncowe: " << (-1) * sympleks.y(0) << endl;
+		std::cout << "f_calls: " << sympleks.f_calls << endl;
+
+		solution::clear_calls();
+
 #endif
 	}
 	catch (char* EX_INFO)

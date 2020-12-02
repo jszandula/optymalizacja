@@ -1,9 +1,2 @@
 ﻿  main.cpp
-  matrix.cpp
-D:\Studia\OPT\optymalizacja\lab_opt\matrix.cpp(274,7): warning C4101: 'z': unreferenced local variable
-  ode_solver.cpp
-  opt_alg.cpp
-D:\Studia\OPT\optymalizacja\lab_opt\opt_alg.cpp(68,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  solution.cpp
-  Generating Code...
-  lab_opt.vcxproj -> D:\Studia\OPT\optymalizacja\x64\Debug\lab_opt.exe
+  lab_opt.vcxproj -> C:\Users\Lenovo\Desktop\optymalizacja\x64\Debug\lab_opt.exe
