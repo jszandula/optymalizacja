@@ -1,4 +1,4 @@
-#include"opt_alg.h"
+﻿#include"opt_alg.h"
 #include<math.h>
 #include<fstream>
 #if LAB_NO>1
@@ -286,7 +286,7 @@ solution Rosen(matrix x0, matrix s0, double alfa, double beta, double epsilon, i
 	}
 }
 #endif
-#if LAB_NO>3
+#if LAB_NO==4
 solution sym_NM_outside(matrix x0, double s, double alfa, double beta, double gama, double delta, double epsilon, double Nmax, matrix O)
 {
 	int* n = get_size(x0);
@@ -554,7 +554,7 @@ solution pen_inside(matrix x0, double c, double a, double epsilon, int Nmax)
 	}
 }
 #endif
-#if LAB_NO>4
+#if LAB_NO==5
 solution SD(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 {
 	int* n = get_size(x0);
@@ -566,67 +566,67 @@ solution SD(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 	while (true)
 	{
 		X.grad();
-		d = ? ;
-		P = set_col(P, X.x, 0);
-		P = set_col(P, d, 1);
-		if (h0 < 0)
+		d = -X.g;
+		P = set_col(P, X.x, 0);		
+		P = set_col(P, d, 1);														  
+		if (h0 < 0)				
 		{
-			b = compute_b(? , ? , limits);
-			h = golden(? , ? , epsilon, Nmax, P);
-			X1.x = ? ;
+			b = compute_b(X.x, d, limits);
+			h = golden(0, b, epsilon, Nmax, P);
+			X1.x = X.x + h.x * d;
 		}
 		else
-			X1.x = ? ;
-		if (? ||
-			? ||
-			? );
+			X1.x = X.x + h0 * d;			
+		if (norm(X.x - X1.x) < epsilon ||
+			solution::f_calls >= Nmax ||
+			solution::g_calls >= Nmax)
 		{
 			X1.fit_fun();
 			return X1;
 		}
-		X = ? ;
+		X = X1;
 	}
 }
 
 solution CG(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 {
-	int* n = get_size(x0);
+	int *n = get_size(x0);
 	solution X, X1;
 	X.x = x0;
 	matrix d(n[0], 1), P(n[0], 2), limits = O;
 	solution h;
 	double b, beta;
 	X.grad();
-	d = ? ;
+	d = -X.g ;
 	while (true)
 	{
 		P = set_col(P, X.x, 0);
 		P = set_col(P, d, 1);
 		if (h0 < 0)
 		{
-			b = compute_b(? , ? , limits);
-			h = golden(? , ? , epsilon, Nmax, P);
-			X1.x = ? ;
+			b = compute_b(X.x , d , limits);
+			h = golden(0 , b , epsilon, Nmax, P);
+			X1.x = X.x + h.x * d ;
 		}
 		else
-			X1.x = ? ;
-		if (? ||
-			? ||
-			? )
+			X1.x = X.x + h0 * d;
+		if (norm(X.x-X1.x) < epsilon ||
+			solution::f_calls >= Nmax ||
+			solution::g_calls >= Nmax )
 		{
 			X1.fit_fun();
 			return X1;
 		}
 		X1.grad();
-		beta = ? ;
-		d = ? ;
-		X = ? ;
+		beta = pow(norm(X1.g), 2) / pow(norm(X.g),2);
+		d = -X1.g + beta * d ;
+		X = X1 ;
 	}
 }
 
 solution Newton(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 {
-	int* n = get_size(x0);
+	int *n = get_size(x0);
 	solution X, X1;
 	X.x = x0;
 	matrix d(n[0], 1), P(n[0], 2), limits = O;
@@ -636,56 +636,56 @@ solution Newton(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 	{
 		X.grad();
 		X.hess();
-		d = ? ;
+		d = -inv(X.H) * X.g ;
 		P = set_col(P, X.x, 0);
 		P = set_col(P, d, 1);
 		if (h0 < 0)
 		{
-			b = compute_b(? , ? , limits);
-			h = golden(? , ? , epsilon, Nmax, P);
-			X1.x = ? ;
+			b = compute_b(X.x, d , limits);
+			h = golden(0 , b , epsilon, Nmax, P);
+			X1.x = X.x + h.x * d ;
 		}
 		else
-			X1.x = ? ;
-		if (? ||
-			? ||
-			? ||
-			? )
+			X1.x = X.x + h0 * d;
+		if (norm(X.x-X1.x) < epsilon ||
+			solution::f_calls >= Nmax ||
+			solution::g_calls >= Nmax ||
+			solution::H_calls >= Nmax )
 		{
 			X1.fit_fun();
 			return X1;
 		}
-		X = ? ;
+		X = X1 ;
 	}
 }
 
 solution golden(double a, double b, double epsilon, int Nmax, matrix O)
 {
-	double alfa = ? ;
+	double alfa = (sqrt(5.0) - 1) / 2;
 	solution A, B, C, D;
-	A.x = ? ;
-	B.x = ? ;
-	C.x = ? ;
+	A.x = a ;
+	B.x = b ;
+	C.x = B.x - alfa * (B.x-A.x);
 	C.fit_fun(O);
-	D.x = ? ;
+	D.x = A.x + alfa * (B.x-A.x) ;
 	D.fit_fun(O);
 	while (true)
 	{
-		if (? )
+		if (C.y < D.y )
 		{
-			B = ? ;
-			D = ? ;
-			C.x = ? ;
+			B = D ;
+			D = C ;
+			C.x = B.x - alfa * (B.x-A.x);
 			C.fit_fun(O);
 		}
 		else
 		{
-			A = ? ;
-			C = ? ;
-			D.x = ? ;
+			A = C ;
+			C = D ;
+			D.x = A.x + alfa * (B.x-A.x) ;
 			D.fit_fun(O);
 		}
-		if (? )
+		if (B.x - A.x < epsilon || solution::f_calls >= Nmax )
 		{
 			A.x = (A.x + B.x) / 2.0;
 			A.fit_fun(O);
@@ -696,18 +696,18 @@ solution golden(double a, double b, double epsilon, int Nmax, matrix O)
 
 double compute_b(matrix x, matrix d, matrix limits)
 {
-	int* n = get_size(x);
+	int *n = get_size(x);
 	double b = 1e9, bi;
 	for (int i = 0; i < n[0]; ++i)
 	{
 		if (d(i) == 0)
-			bi = ? ;
+			bi = 1e9 ;
 		else if (d(i) > 0)
-			bi = ? ;
+			bi = (limits(i,1)-x(i))/d(i) ;
 		else
-			bi = ? ;
-		if (? )
-			b = bi;
+			bi = (limits(i,0) - x(i)) / d(i);
+			if (b>bi )
+				b = bi;
 	}
 	return b;
 }

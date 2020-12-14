@@ -147,9 +147,22 @@ void solution::fit_fun(matrix O)
 		sym2 << Y[1](i, 2) << endl; //y
 	}
 	++f_calls;
+#elif LAB_NO == 5
+	int* n = get_size(O);
+	if (n[1] == 1) {
+		y = pow((x(0) + 2 * x(1) - 7), 2) + pow(2 * x(0) + x(1) - 5, 2);
+		++f_calls;
+	}
+	else {
+		solution tmp;
+		tmp.x = O[0] + x * O[1];
+		tmp.fit_fun();
+		y = tmp.y;
+	}
 #endif
 }
 
+#if LAB_NO==3
 void solution::fit_fun_outside(matrix A)
 {
 	/*double arg = M_PI * sqrt(pow(x(0) / M_PI, 2) + pow(x(1) / M_PI, 2));
@@ -246,15 +259,22 @@ void solution::fit_fun_inside(matrix A)
 
 	++f_calls;
 }
+#endif
 
 void solution::grad(matrix O)
 {
-	g = NAN;
+	g = matrix(2, 1);
+	g(0) = 10 * x(0) + 8 * x(1) - 34;
+	g(1) = 10 * x(1) + 8 * x(0) - 38;
 	++g_calls;
 }
 
 void solution::hess(matrix O)
 {
-	H = NAN;
+	H = matrix(2, 2);
+	H(0, 0) = 10;
+	H(0, 1) = 8;
+	H(1, 0) = 8;
+	H(1, 1) = 10;
 	++H_calls;
 }
