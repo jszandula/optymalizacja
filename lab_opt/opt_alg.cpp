@@ -576,7 +576,8 @@ solution SD(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 			X1.x = X.x + h.x * d;
 		}
 		else
-			X1.x = X.x + h0 * d;			
+			X1.x = X.x + h0 * d;	
+		cout << "x1: " << X1.x(0) << "\tx2: " << X1.x(1) << endl;
 		if (norm(X.x - X1.x) < epsilon ||
 			solution::f_calls >= Nmax ||
 			solution::g_calls >= Nmax)
@@ -610,6 +611,7 @@ solution CG(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 		}
 		else
 			X1.x = X.x + h0 * d;
+		cout << "x1: " << X1.x(0) << "\tx2: " << X1.x(1) << endl;
 		if (norm(X.x-X1.x) < epsilon ||
 			solution::f_calls >= Nmax ||
 			solution::g_calls >= Nmax )
@@ -625,7 +627,7 @@ solution CG(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 }
 
 solution Newton(matrix x0, double h0, double epsilon, int Nmax, matrix O)
-{
+{	
 	int *n = get_size(x0);
 	solution X, X1;
 	X.x = x0;
@@ -647,6 +649,7 @@ solution Newton(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 		}
 		else
 			X1.x = X.x + h0 * d;
+		cout << "x1: " << X1.x(0) << "\tx2: " << X1.x(1) << endl;
 		if (norm(X.x-X1.x) < epsilon ||
 			solution::f_calls >= Nmax ||
 			solution::g_calls >= Nmax ||

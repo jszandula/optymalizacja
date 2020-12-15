@@ -256,8 +256,6 @@ int main()
 
 		solution::clear_calls();
 #elif LAB_NO == 5
-		static default_random_engine generate(unsigned(time(nullptr)));
-		uniform_real_distribution<double> distribution(-10, 10);
 		ofstream f("lab5_res.csv");
 		double epsilon = 0.0001;
 		int Nmax = 1000, SDf_calls, SDg_calls, CGf_calls, CGg_calls, Newf_calls, Newg_calls, Newh_calls,
@@ -270,68 +268,77 @@ int main()
 		limits(1,1) = 10;
 		matrix x0(2, 1);
 
-		for (size_t i = 0; i < 100; i++) {
-			cout << "iteration: " << i << endl;
-			x0(0) = distribution(generate);
-			x0(1) = distribution(generate);
-			
-			//h stalokrokowe 0,05
-			solution SDres = SD(x0, 0.05, epsilon, Nmax, limits);
-			SDf_calls = solution::f_calls;
-			SDg_calls = solution::g_calls;
-			solution::clear_calls();
+		
+		x0(0) = 7.24004;
+		x0(1) = -1.72375;
 
-			//h stalokrokowe 0,05
-			solution CGres = CG(x0, 0.05, epsilon, Nmax, limits);
-			CGf_calls = solution::f_calls;
-			CGg_calls = solution::g_calls;
-			solution::clear_calls();
 
-			//h stalokrokowe 0,05
-			solution Newtonres = Newton(x0, 0.05, epsilon, Nmax, limits);
-			Newf_calls = solution::f_calls;
-			Newg_calls = solution::g_calls;
-			Newh_calls = solution::H_calls;
-			solution::clear_calls();
+		cout << "\nSD 0,05" << endl;
+		//h stalokrokowe 0,05
+		solution SDres = SD(x0, 0.05, epsilon, Nmax, limits);
+		SDf_calls = solution::f_calls;
+		SDg_calls = solution::g_calls;
+		solution::clear_calls();
 
-			//h stalokrokowe 0,12
-			solution SDres1 = SD(x0, 0.12, epsilon, Nmax, limits);
-			SDf_calls1 = solution::f_calls;
-			SDg_calls1 = solution::g_calls;
-			solution::clear_calls();
+		cout << "CG 0,05" << endl;
+		//h stalokrokowe 0,05
+		solution CGres = CG(x0, 0.05, epsilon, Nmax, limits);
+		CGf_calls = solution::f_calls;
+		CGg_calls = solution::g_calls;
+		solution::clear_calls();
 
-			//h stalokrokowe 0,12
-			solution CGres1 = CG(x0, 0.12, epsilon, Nmax, limits);
-			CGf_calls1 = solution::f_calls;
-			CGg_calls1 = solution::g_calls;
-			solution::clear_calls();
+		cout << "Newton 0,05" << endl;
+		//h stalokrokowe 0,05
+		solution Newtonres = Newton(x0, 0.05, epsilon, Nmax, limits);
+		Newf_calls = solution::f_calls;
+		Newg_calls = solution::g_calls;
+		Newh_calls = solution::H_calls;
+		solution::clear_calls();
 
-			//h stalokrokowe 0,12
-			solution Newtonres1 = Newton(x0, 0.12, epsilon, Nmax, limits);
-			Newf_calls1 = solution::f_calls;
-			Newg_calls1 = solution::g_calls;
-			Newh_calls1 = solution::H_calls;
-			solution::clear_calls();
+		cout << "SD 0,12" << endl;
+		//h stalokrokowe 0,12
+		solution SDres1 = SD(x0, 0.12, epsilon, Nmax, limits);
+		SDf_calls1 = solution::f_calls;
+		SDg_calls1 = solution::g_calls;
+		solution::clear_calls();
 
-			//h zmiennokrokowe - bedzie obliczone zlotym podzialem
-			solution SDres2 = SD(x0, -0.05, epsilon, Nmax, limits);
-			SDf_calls2 = solution::f_calls;
-			SDg_calls2 = solution::g_calls;
-			solution::clear_calls();
+		cout << "CG 0,12" << endl;
+		//h stalokrokowe 0,12
+		solution CGres1 = CG(x0, 0.12, epsilon, Nmax, limits);
+		CGf_calls1 = solution::f_calls;
+		CGg_calls1 = solution::g_calls;
+		solution::clear_calls();
 
-			//h zmiennokrokowe
-			solution CGres2 = CG(x0, -0.05, epsilon, Nmax, limits);
-			CGf_calls2 = solution::f_calls;
-			CGg_calls2 = solution::g_calls;
-			solution::clear_calls();
+		cout << "Newton 0,12" << endl;
+		//h stalokrokowe 0,12
+		solution Newtonres1 = Newton(x0, 0.12, epsilon, Nmax, limits);
+		Newf_calls1 = solution::f_calls;
+		Newg_calls1 = solution::g_calls;
+		Newh_calls1 = solution::H_calls;
+		solution::clear_calls();
 
-			//h zmiennokrokowe
-			solution Newtonres2 = Newton(x0, -0.05, epsilon, Nmax, limits);
-			Newf_calls2 = solution::f_calls;
-			Newg_calls2 = solution::g_calls;
-			Newh_calls2 = solution::H_calls;
-			solution::clear_calls();
-			f << x0(0)<<";"<<x0(1)<<";"<<SDres.x(0) << ";" << SDres.x(1) << ";" << SDres.y(0) << ";" << SDf_calls << ";" << SDg_calls << ";" << CGres.x(0)
+		cout << "SD zm" << endl;
+		//h zmiennokrokowe - bedzie obliczone zlotym podzialem
+		solution SDres2 = SD(x0, -0.05, epsilon, Nmax, limits);
+		SDf_calls2 = solution::f_calls;
+		SDg_calls2 = solution::g_calls;
+		solution::clear_calls();
+
+		cout << "CG zm" << endl;
+		//h zmiennokrokowe
+		solution CGres2 = CG(x0, -0.05, epsilon, Nmax, limits);
+		CGf_calls2 = solution::f_calls;
+		CGg_calls2 = solution::g_calls;
+		solution::clear_calls();
+
+		cout << "Newton zm" << endl;
+		//h zmiennokrokowe
+		solution Newtonres2 = Newton(x0, -0.05, epsilon, Nmax, limits);
+		Newf_calls2 = solution::f_calls;
+		Newg_calls2 = solution::g_calls;
+		Newh_calls2 = solution::H_calls;
+		solution::clear_calls();
+		/*f << x0(0)<<";"<<x0(1)<<";"<<SDres.x(0) << ";" << SDres.x(1) << ";" << SDres.y(0) << ";" << SDf_calls << ";" << SDg_calls << ";" << CGres.x(0)
 				<< ";" << CGres.x(1) << ";" << CGres.y(0) << ";" << CGf_calls << ";" << CGg_calls << ";" <<
 				Newtonres.x(0) << ";" << Newtonres.x(1) << ";" << Newtonres.y(0) << ";" << Newf_calls << ";" << Newg_calls
 				<< ";" << Newh_calls << endl<<  ";"<<";" << SDres1.x(0) << ";" << SDres1.x(1) << ";" << SDres1.y(0) << ";" << SDf_calls1 << ";" << SDg_calls1 << ";"
@@ -340,9 +347,8 @@ int main()
 				Newg_calls1 << ";" << Newh_calls1 << endl  << ";"<<";" << SDres2.x(0) << ";" << SDres2.x(1) << ";" << SDres2.y(0) << ";" << SDf_calls2 << ";" << SDg_calls2 << ";"
 				<< CGres2.x(0) << ";" << CGres2.x(1) << ";" << CGres2.y(0) << ";" << CGf_calls2 << ";" << CGg_calls2 << ";"
 				<< Newtonres2.x(0) << ";" << Newtonres2.x(1) << ";" << Newtonres2.y(0) << ";" << Newf_calls2 << ";" << 
-				Newg_calls2 << ";" << Newh_calls2 << endl;
+				Newg_calls2 << ";" << Newh_calls2 << endl;*/
 
-		}
 
 #endif
 	}
