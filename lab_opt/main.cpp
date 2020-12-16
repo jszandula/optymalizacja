@@ -256,6 +256,7 @@ int main()
 
 		solution::clear_calls();
 #elif LAB_NO == 5
+/*
 		ofstream f("lab5_res.csv");
 		double epsilon = 0.0001;
 		int Nmax = 1000, SDf_calls, SDg_calls, CGf_calls, CGg_calls, Newf_calls, Newg_calls, Newh_calls,
@@ -338,6 +339,7 @@ int main()
 		Newg_calls2 = solution::g_calls;
 		Newh_calls2 = solution::H_calls;
 		solution::clear_calls();
+		*/
 		/*f << x0(0)<<";"<<x0(1)<<";"<<SDres.x(0) << ";" << SDres.x(1) << ";" << SDres.y(0) << ";" << SDf_calls << ";" << SDg_calls << ";" << CGres.x(0)
 				<< ";" << CGres.x(1) << ";" << CGres.y(0) << ";" << CGf_calls << ";" << CGg_calls << ";" <<
 				Newtonres.x(0) << ";" << Newtonres.x(1) << ";" << Newtonres.y(0) << ";" << Newf_calls << ";" << Newg_calls
@@ -348,8 +350,30 @@ int main()
 				<< CGres2.x(0) << ";" << CGres2.x(1) << ";" << CGres2.y(0) << ";" << CGf_calls2 << ";" << CGg_calls2 << ";"
 				<< Newtonres2.x(0) << ";" << Newtonres2.x(1) << ";" << Newtonres2.y(0) << ";" << Newf_calls2 << ";" << 
 				Newg_calls2 << ";" << Newh_calls2 << endl;*/
-
-
+		/*
+		matrix x0(3, 1);
+		x0(0) = x0(1) = x0(2) = 0.0;
+		double krok = 0.01;
+		double epsilon = 1 * 10 ^ -5;
+		int Nmax = 20000;
+		solution solCG = CG(x0, krok, epsilon, Nmax);
+		cout << "Metoda CG z krokiem " << krok << endl;
+		cout << "x0(0)= " << solCG.x(0) << endl;
+		cout << "x0(1)= " << solCG.x(1) << endl;
+		cout << "x0(2)= " << solCG.x(2) << endl;
+		cout << "y= " << solCG.y(0) << endl;
+		cout << "f_calls: " << solution::f_calls << endl;
+		cout << "g_calls: " << solution::g_calls << endl;
+		cout << "H_calls: " << solution::H_calls << endl;
+		solution::clear_calls();
+		*/
+		solution X;
+		matrix x0(3, 1);
+		x0(0) = -297135;
+		x0(1) = 700330;
+		x0(2) = 0.00000107;
+		X.x = x0;
+		X.fit_fun();
 #endif
 	}
 	catch (char* EX_INFO)

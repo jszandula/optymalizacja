@@ -148,8 +148,8 @@ void solution::fit_fun(matrix O)
 	}
 	++f_calls;
 #elif LAB_NO == 5
-	int* n = get_size(O);
-	if (n[1] == 1) {
+	//int* n = get_size(O);
+	/*if (n[1] == 1) {
 		y = pow((x(0) + 2 * x(1) - 7), 2) + pow(2 * x(0) + x(1) - 5, 2);
 		++f_calls;
 	}
@@ -159,6 +159,49 @@ void solution::fit_fun(matrix O)
 		tmp.fit_fun();
 		y = tmp.y;
 	}
+	*/
+
+	/*
+	int m = 100;
+	int* n = get_size(x);
+	static matrix X(n[0], m), Y(1, m);
+	if (solution::f_calls == 0) {
+		ifstream S("XData.txt");
+		S >> X;
+		S.close();
+		S.open("YData.txt");
+		S >> Y;
+		S.close();
+	}
+	double h = 0;
+	y(0) = 0;
+	for (int i = 0; i < m; i++) {
+		h = (trans(x) * X[i])(0);
+		h = 1.0 / (1.0 + exp(-h));
+		y = y - Y(0, i) * log(h) - (1.0 - Y(0, i)) * log(1.0 - h);
+	}
+	y(0) = y(0) / m;
+	*/
+
+
+	ifstream S("XData.txt");
+	ofstream plik("hZero.txt");
+	plik << "X1 X2 Y h0" << endl;
+	int m = 100;
+	int* n = get_size(x);
+	static matrix X(3, m), Y(1, m);
+	S >> X;
+	S.close();
+	S.open("YData.txt");
+	S >> Y;
+	S.close();
+	double h = 0;
+	for (int i = 0; i < m; i++) {
+		h = (trans(x) * X[i])(0);
+		h = 1.0 / (1.0 + exp(-h));
+		plik << X[i](1) << " " << X[i](2) << " " << Y[i](0) << " " << h << endl;
+	}
+	f_calls++;
 #endif
 }
 
@@ -263,9 +306,31 @@ void solution::fit_fun_inside(matrix A)
 
 void solution::grad(matrix O)
 {
-	g = matrix(2, 1);
-	g(0) = 10 * x(0) + 8 * x(1) - 34;
-	g(1) = 10 * x(1) + 8 * x(0) - 38;
+	//g = matrix(2, 1);
+	//g(0) = 10 * x(0) + 8 * x(1) - 34;
+	//g(1) = 10 * x(1) + 8 * x(0) - 38;
+
+	int m = 100;
+	int* n = get_size(x);
+	static matrix X(n[0], m), Y(1, m);
+	if (solution::g_calls == 0) {
+		ifstream S("XData.txt");
+		S >> X;
+		S.close();
+		S.open("YData.txt");
+		S >> Y;
+		S.close();
+	}
+	double h;
+	g = matrix(n[0], 1);
+	for (int j = 0; j < n[0]; ++j) {
+		for (int i = 0; i < m; ++i) {
+			h = (trans(x) * X[i])(0);
+			h = 1.0 / (1.0 + exp(-h));
+			g(j) = g(j) + X(j, i) * (h - Y(0, i));
+		}
+		g(j) = g(j) / m;
+	}
 	++g_calls;
 }
 
