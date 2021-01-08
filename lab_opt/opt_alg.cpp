@@ -554,7 +554,7 @@ solution pen_inside(matrix x0, double c, double a, double epsilon, int Nmax)
 	}
 }
 #endif
-#if LAB_NO==5
+#if LAB_NO>5
 solution SD(matrix x0, double h0, double epsilon, int Nmax, matrix O)
 {
 	int* n = get_size(x0);
@@ -715,11 +715,14 @@ double compute_b(matrix x, matrix d, matrix limits)
 	return b;
 }
 #endif
-#if LAB_NO>5
+#if LAB_NO>4
 solution Powell(matrix x0, double epsilon, int Nmax, matrix O)
 {
 	int* n = get_size(x0);
-	matrix D = ident_mat(n[0]), A(n[0], 3), limits(n[0], 2);
+	matrix D(n[0], n[0]);
+	for (int i = 0; i < n[0]; ++i)
+		D(i, i) = 1;
+	matrix A(n[0], 3), limits(n[0], 2);
 	limits = set_col(limits, O[0], 0);
 	limits = set_col(limits, O[1], 1);
 	A(0, 2) = O(0, 2);
@@ -728,28 +731,28 @@ solution Powell(matrix x0, double epsilon, int Nmax, matrix O)
 	double* ab;
 	while (true)
 	{
-		P = ? ;
-		for (int i = 0; i < ? ; ++i)
+		P = X.x;
+		for (int i = 0; i < n[0]; ++i)
 		{
 			A = set_col(A, P.x, 0);
 			A = set_col(A, D[i], 1);
-			ab = compute_ab(? , ? , limits);
-			h = golden(? , ? , epsilon, Nmax, A);
-			P.x = ? ;
+			ab = compute_ab(P.x, O, limits);
+			h = golden(ab[0], ab[1], epsilon, Nmax, A);
+			P.x = P.x + h.x * D[i];
 		}
-		if (? )
+		if (norm(X.x - P.x) < epsilon || solution::f_calls > Nmax)
 		{
 			P.fit_fun();
 			return P;
 		}
 		for (int i = 0; i < n[0] - 1; ++i)
-			D = ? ;
-		D = ? ;
+			D = set_col(D, D[i + 1], i);
+		D = set_col(D, P.x - X.x, n[0] - 1);
 		A = set_col(A, P.x, 0);
 		A = set_col(A, D[n[0] - 1], 1);
-		ab = compute_ab(? , ? , limits);
-		h = golden(? , ? , epsilon, Nmax, A);
-		X.x = ? ;
+		ab = compute_ab(P.x, D[1], limits);
+		h = golden(ab[0], ab[1], epsilon, Nmax, A);
+		X.x = P.x + h.x * D[n[0] - 1];
 	}
 }
 
@@ -762,22 +765,22 @@ double* compute_ab(matrix x, matrix d, matrix limits)
 	{
 		if (d(i) == 0)
 		{
-			ai = ? ;
-			bi = ? ;
+			ai = ab[0];
+			bi = ab[1];
 		}
 		else if (d(i) > 0)
 		{
-			ai = ? ;
-			bi = ? ;
+			ai = (limits(i, 0) - x(i)) / d(i);
+			bi = (limits(i, 1) - x(i)) / d(i);
 		}
 		else
 		{
-			ai = ? ;
-			bi = ? ;
+			ai = (limits(i, 1) - x(i)) / d(i);
+			bi = (limits(i, 0) - x(i)) / d(i);
 		}
-		if (? )
+		if (ab[0] > ai)
 			ab[0] = ai;
-		if (? )
+		if (ab[1] > bi)
 			ab[1] = bi;
 	}
 	return ab;

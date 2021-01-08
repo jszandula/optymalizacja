@@ -374,6 +374,34 @@ int main()
 		x0(2) = 0.00000107;
 		X.x = x0;
 		X.fit_fun();
+#elif LAB_NO == 6
+		static default_random_engine generate(unsigned(time(nullptr)));
+		uniform_real_distribution<double> distribution(-10, 10);
+
+		ofstream f("lab6_res.csv");
+		ifstream start_point("x0.txt");
+		double epsilon = 0.0001, w = 0.0;
+		int Nmax = 1000;
+
+		matrix limits(2, 3);
+		limits(0, 0) = -10;
+		limits(0, 1) = 10;
+		limits(1, 0) = -10;
+		limits(1, 1) = 10;
+		limits(0, 2) = w;
+		matrix x0(2, 1);
+
+		for (int i = 0; i < 101; i++) {
+			/*x0(0) = distribution(generate);
+			x0(1) = distribution(generate);*/
+			start_point >> x0(0);
+			start_point >> x0(1);
+
+			solution powell = Powell(x0, epsilon, Nmax, limits);
+			f << x0(0) << ";" << x0(1) << ";" << powell.x(0) << ";" << powell.x(1) << ";" << powell.y(0) << ";" << powell.y(1) << ";" << powell.f_calls << endl;
+			limits(0, 2) = limits(0, 2) + 0.01;
+			solution::clear_calls();
+		}
 #endif
 	}
 	catch (char* EX_INFO)

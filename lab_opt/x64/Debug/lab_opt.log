@@ -1,2 +1,3 @@
-﻿  main.cpp
-  lab_opt.vcxproj -> C:\Users\Lenovo\Desktop\optymalizacja\x64\Debug\lab_opt.exe
+﻿  opt_alg.cpp
+D:\Studia\OPT\optymalizacja\lab_opt\opt_alg.cpp(68,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  lab_opt.vcxproj -> D:\Studia\OPT\optymalizacja\x64\Debug\lab_opt.exe

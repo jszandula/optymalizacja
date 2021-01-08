@@ -26,7 +26,7 @@ class matrix
 	friend bool operator==(const matrix&, const matrix&); // throw (char*);
 	friend bool operator!=(const matrix&, const matrix&); // throw (char*);
 	friend matrix ident_mat(int = 1); // throw (char*);
-	friend matrix set_col(const matrix&, matrix&, int); // throw (char*);
+	friend matrix set_col(const matrix&, matrix, int); // throw (char*);
 	friend double det(const matrix&); // throw (char*);
 	friend matrix inv(const matrix&); // throw (char*);
 	friend matrix trans(const matrix&);

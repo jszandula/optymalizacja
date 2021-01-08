@@ -202,6 +202,23 @@ void solution::fit_fun(matrix O)
 		plik << X[i](1) << " " << X[i](2) << " " << Y[i](0) << " " << h << endl;
 	}
 	f_calls++;
+#elif LAB_NO == 6
+	int* n = get_size(O);
+	if (n[1] == 1)
+	{
+		y = matrix(2, 1);
+		double a = 100.0;
+		y(0) = a * (pow((x(0) - 5), 2) + pow((x(1) - 5), 2));
+		y(1) = (1 / a) * (pow((x(0) + 5), 2) + pow((x(1) + 5), 2));
+		++f_calls;
+	}
+	else
+	{
+		solution tmp;
+		tmp.x = O[0] + x * O[1];
+		tmp.fit_fun();
+		y = O(0, 2) * tmp.y(0) + (1 - O(0, 2)) * tmp.y(1);
+	}
 #endif
 }
 
