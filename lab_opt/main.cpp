@@ -389,6 +389,7 @@ int main()
 		limits(1, 0) = -10;
 		limits(1, 1) = 10;
 		limits(0, 2) = w;
+		limits(1, 2) = 0;
 		matrix x0(2, 1);
 
 		for (int i = 0; i < 101; i++) {
@@ -398,7 +399,8 @@ int main()
 			start_point >> x0(1);
 
 			solution powell = Powell(x0, epsilon, Nmax, limits);
-			f << x0(0) << ";" << x0(1) << ";" << powell.x(0) << ";" << powell.x(1) << ";" << powell.y(0) << ";" << powell.y(1) << ";" << powell.f_calls << endl;
+			f << x0(0) << ";" << x0(1) << ";" << powell.x(0) << ";" << powell.x(1) << ";" 
+				<< powell.y(0) << ";" << powell.y(1) << ";" << solution::f_calls << endl;
 			limits(0, 2) = limits(0, 2) + 0.01;
 			solution::clear_calls();
 		}

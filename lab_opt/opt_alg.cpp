@@ -720,8 +720,9 @@ solution Powell(matrix x0, double epsilon, int Nmax, matrix O)
 {
 	int* n = get_size(x0);
 	matrix D(n[0], n[0]);
-	for (int i = 0; i < n[0]; ++i)
+	for (int i = 0; i < n[0]; i++) {
 		D(i, i) = 1;
+	}
 	matrix A(n[0], 3), limits(n[0], 2);
 	limits = set_col(limits, O[0], 0);
 	limits = set_col(limits, O[1], 1);
@@ -731,54 +732,55 @@ solution Powell(matrix x0, double epsilon, int Nmax, matrix O)
 	double* ab;
 	while (true)
 	{
-		P = X.x;
+		P = X.x; 
 		for (int i = 0; i < n[0]; ++i)
 		{
-			A = set_col(A, P.x, 0);
-			A = set_col(A, D[i], 1);
-			ab = compute_ab(P.x, O, limits);
+			A = set_col(A, P.x, 0);   
+			A = set_col(A, D[i], 1);    
+			ab = compute_ab(P.x, D[i], limits);
 			h = golden(ab[0], ab[1], epsilon, Nmax, A);
 			P.x = P.x + h.x * D[i];
 		}
+
 		if (norm(X.x - P.x) < epsilon || solution::f_calls > Nmax)
 		{
 			P.fit_fun();
-			return P;
+			return P; 
 		}
 		for (int i = 0; i < n[0] - 1; ++i)
-			D = set_col(D, D[i + 1], i);
-		D = set_col(D, P.x - X.x, n[0] - 1);
+			D = set_col(D, D[i + 1], i);    
+		D = set_col(D, P.x - X.x, n[0] - 1);   
 		A = set_col(A, P.x, 0);
 		A = set_col(A, D[n[0] - 1], 1);
-		ab = compute_ab(P.x, D[1], limits);
+		ab = compute_ab(P.x, D[n[0] - 1], limits);
 		h = golden(ab[0], ab[1], epsilon, Nmax, A);
-		X.x = P.x + h.x * D[n[0] - 1];
+		X.x = P.x + h.x * D[n[0] - 1];  
 	}
 }
-
 double* compute_ab(matrix x, matrix d, matrix limits)
 {
 	int* n = get_size(x);
-	double* ab = new double[2]{ -1e9,1e9 };
+	double* ab = new double[2]{ -1e9,1e9 };  
 	double ai, bi;
 	for (int i = 0; i < n[0]; ++i)
 	{
 		if (d(i) == 0)
 		{
-			ai = ab[0];
+			ai = ab[0]; 
 			bi = ab[1];
 		}
-		else if (d(i) > 0)
+		else if (d(i) > 0) 
 		{
-			ai = (limits(i, 0) - x(i)) / d(i);
-			bi = (limits(i, 1) - x(i)) / d(i);
+
+			ai = (limits(i, 0) - x(i)) / d(i);  
+			bi = (limits(i, 1) - x(i)) / d(i);   
 		}
 		else
 		{
 			ai = (limits(i, 1) - x(i)) / d(i);
 			bi = (limits(i, 0) - x(i)) / d(i);
 		}
-		if (ab[0] > ai)
+		if (ab[0] < ai)
 			ab[0] = ai;
 		if (ab[1] > bi)
 			ab[1] = bi;
