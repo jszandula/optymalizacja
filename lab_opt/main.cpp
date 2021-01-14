@@ -112,65 +112,65 @@ int main()
 		//for (int i = 0; i < 100; i++) {
 		x0(0) = 2.76993;//distribution(generate);
 		x0(1) = 3.18721; //distribution(generate);
-			std::cout << "Pkt pocz.: " << x0 << endl;
-			x1_0 << x0(0) << endl;
-			x2_0 << x0(1) << endl;
+		std::cout << "Pkt pocz.: " << x0 << endl;
+		x1_0 << x0(0) << endl;
+		x2_0 << x0(1) << endl;
 
-			s = 1.0;
-			alfa = 0.5;
-			std::cout << "HJ\n";
-			solution x_HJ = HJ(x0, s, alfa, epsilon, Nmax);
-			std::cout << x_HJ << endl;
-			HJ_x1 << x_HJ.x(0) << endl;
-			HJ_x2 << x_HJ.x(1) << endl;
-			HJ_y << x_HJ.y << endl;
-			HJ_calls << x_HJ.f_calls << endl;
+		s = 1.0;
+		alfa = 0.5;
+		std::cout << "HJ\n";
+		solution x_HJ = HJ(x0, s, alfa, epsilon, Nmax);
+		std::cout << x_HJ << endl;
+		HJ_x1 << x_HJ.x(0) << endl;
+		HJ_x2 << x_HJ.x(1) << endl;
+		HJ_y << x_HJ.y << endl;
+		HJ_calls << x_HJ.f_calls << endl;
 
-			matrix Y0(2, 1);
-			/*matrix* Y = solve_ode(0, 0.1, 100, Y0, x_HJ.x);
-			ofstream S("Symulacja_HJ.txt");
-			ofstream Sa("Symulacja_HJ_a.txt");
-			for (int i = 0; i < 1000; i++) {
-				Sa << Y[1][0](i) << endl;
-				S << Y[1][1](i) << endl;
+		matrix Y0(2, 1);
+		/*matrix* Y = solve_ode(0, 0.1, 100, Y0, x_HJ.x);
+		ofstream S("Symulacja_HJ.txt");
+		ofstream Sa("Symulacja_HJ_a.txt");
+		for (int i = 0; i < 1000; i++) {
+			Sa << Y[1][0](i) << endl;
+			S << Y[1][1](i) << endl;
 
-			}*/
-
-
-			solution::clear_calls();
-
-			s0(0) = s;
-			s0(1) = s;
-			alfa = 2.0;
-			beta = 0.5;
-			std::cout << "Rosenbrock\n";
-			solution x_Rosen = Rosen(x0, s0, alfa, beta, epsilon, Nmax);
-			std::cout << x_Rosen;
-			Rosen_x1 << x_Rosen.x(0) << endl;
-			Rosen_x2 << x_Rosen.x(1) << endl;
-			Rosen_y << x_Rosen.y << endl;
-			Rosen_calls << x_Rosen.f_calls << endl;
-
-			
-			matrix* Y = solve_ode(0, 0.1, 100, Y0, x_Rosen.x);
-			ofstream SR("Symulacja_R.txt");
-			ofstream SRa("Symulacja_R_a.txt");
-			for (int i = 0; i < 1000; i++) {
-				SRa << Y[1][0](i) << endl;
-				SR << Y[1][1](i) << endl;
+		}*/
 
 
-			}
+		solution::clear_calls();
 
-			solution::clear_calls;
+		s0(0) = s;
+		s0(1) = s;
+		alfa = 2.0;
+		beta = 0.5;
+		std::cout << "Rosenbrock\n";
+		solution x_Rosen = Rosen(x0, s0, alfa, beta, epsilon, Nmax);
+		std::cout << x_Rosen;
+		Rosen_x1 << x_Rosen.x(0) << endl;
+		Rosen_x2 << x_Rosen.x(1) << endl;
+		Rosen_y << x_Rosen.y << endl;
+		Rosen_calls << x_Rosen.f_calls << endl;
+
+
+		matrix* Y = solve_ode(0, 0.1, 100, Y0, x_Rosen.x);
+		ofstream SR("Symulacja_R.txt");
+		ofstream SRa("Symulacja_R_a.txt");
+		for (int i = 0; i < 1000; i++) {
+			SRa << Y[1][0](i) << endl;
+			SR << Y[1][1](i) << endl;
+
+
+		}
+
+		solution::clear_calls;
 		//}
 
 #elif LAB_NO==4
 		ofstream f("lab4_results.csv");
-		
+
 		ofstream r_out_file("niewiem1.txt");
 		ofstream r_in_file("niewiem2.txt");
-		
+
 		/*
 		double epsilon = 1e-5, c = 1000, a;
 		int Nmax = 10000;
@@ -249,124 +249,124 @@ int main()
 		int Nmax = 5000;
 		matrix x1(2, 1);
 		solution sympleks = pen(x0, c0, dc, epsilon, Nmax, x1);
-		
+
 		std::cout << "Optymalne V0x= " << sympleks.x(0) << "\nOptymalna omega: " << sympleks.x(1);
 		std::cout << endl << "x koncowe: " << (-1) * sympleks.y(0) << endl;
 		std::cout << "f_calls: " << sympleks.f_calls << endl;
 
 		solution::clear_calls();
 #elif LAB_NO == 5
-/*
-		ofstream f("lab5_res.csv");
-		double epsilon = 0.0001;
-		int Nmax = 1000, SDf_calls, SDg_calls, CGf_calls, CGg_calls, Newf_calls, Newg_calls, Newh_calls,
-					SDf_calls1, SDg_calls1, CGf_calls1, CGg_calls1, Newf_calls1, Newg_calls1, Newh_calls1, 
-					SDf_calls2, SDg_calls2, CGf_calls2, CGg_calls2, Newf_calls2, Newg_calls2, Newh_calls2;
-		matrix limits(2, 2);
-		limits(0,0) = -10;
-		limits(0,1) = 10;
-		limits(1,0) = -10;
-		limits(1,1) = 10;
-		matrix x0(2, 1);
-
-		
-		x0(0) = 7.24004;
-		x0(1) = -1.72375;
-
-
-		cout << "\nSD 0,05" << endl;
-		//h stalokrokowe 0,05
-		solution SDres = SD(x0, 0.05, epsilon, Nmax, limits);
-		SDf_calls = solution::f_calls;
-		SDg_calls = solution::g_calls;
-		solution::clear_calls();
-
-		cout << "CG 0,05" << endl;
-		//h stalokrokowe 0,05
-		solution CGres = CG(x0, 0.05, epsilon, Nmax, limits);
-		CGf_calls = solution::f_calls;
-		CGg_calls = solution::g_calls;
-		solution::clear_calls();
-
-		cout << "Newton 0,05" << endl;
-		//h stalokrokowe 0,05
-		solution Newtonres = Newton(x0, 0.05, epsilon, Nmax, limits);
-		Newf_calls = solution::f_calls;
-		Newg_calls = solution::g_calls;
-		Newh_calls = solution::H_calls;
-		solution::clear_calls();
-
-		cout << "SD 0,12" << endl;
-		//h stalokrokowe 0,12
-		solution SDres1 = SD(x0, 0.12, epsilon, Nmax, limits);
-		SDf_calls1 = solution::f_calls;
-		SDg_calls1 = solution::g_calls;
-		solution::clear_calls();
-
-		cout << "CG 0,12" << endl;
-		//h stalokrokowe 0,12
-		solution CGres1 = CG(x0, 0.12, epsilon, Nmax, limits);
-		CGf_calls1 = solution::f_calls;
-		CGg_calls1 = solution::g_calls;
-		solution::clear_calls();
-
-		cout << "Newton 0,12" << endl;
-		//h stalokrokowe 0,12
-		solution Newtonres1 = Newton(x0, 0.12, epsilon, Nmax, limits);
-		Newf_calls1 = solution::f_calls;
-		Newg_calls1 = solution::g_calls;
-		Newh_calls1 = solution::H_calls;
-		solution::clear_calls();
-
-		cout << "SD zm" << endl;
-		//h zmiennokrokowe - bedzie obliczone zlotym podzialem
-		solution SDres2 = SD(x0, -0.05, epsilon, Nmax, limits);
-		SDf_calls2 = solution::f_calls;
-		SDg_calls2 = solution::g_calls;
-		solution::clear_calls();
-
-		cout << "CG zm" << endl;
-		//h zmiennokrokowe
-		solution CGres2 = CG(x0, -0.05, epsilon, Nmax, limits);
-		CGf_calls2 = solution::f_calls;
-		CGg_calls2 = solution::g_calls;
-		solution::clear_calls();
-
-		cout << "Newton zm" << endl;
-		//h zmiennokrokowe
-		solution Newtonres2 = Newton(x0, -0.05, epsilon, Nmax, limits);
-		Newf_calls2 = solution::f_calls;
-		Newg_calls2 = solution::g_calls;
-		Newh_calls2 = solution::H_calls;
-		solution::clear_calls();
-		*/
-		/*f << x0(0)<<";"<<x0(1)<<";"<<SDres.x(0) << ";" << SDres.x(1) << ";" << SDres.y(0) << ";" << SDf_calls << ";" << SDg_calls << ";" << CGres.x(0)
-				<< ";" << CGres.x(1) << ";" << CGres.y(0) << ";" << CGf_calls << ";" << CGg_calls << ";" <<
-				Newtonres.x(0) << ";" << Newtonres.x(1) << ";" << Newtonres.y(0) << ";" << Newf_calls << ";" << Newg_calls
-				<< ";" << Newh_calls << endl<<  ";"<<";" << SDres1.x(0) << ";" << SDres1.x(1) << ";" << SDres1.y(0) << ";" << SDf_calls1 << ";" << SDg_calls1 << ";"
-				<< CGres1.x(0) << ";" << CGres1.x(1) << ";" << CGres1.y(0) << ";" << CGf_calls1 << ";" << CGg_calls1 << ";"
-				<< Newtonres1.x(0) << ";" << Newtonres1.x(1) << ";" << Newtonres1.y(0) << ";" << Newf_calls1 << ";" <<
-				Newg_calls1 << ";" << Newh_calls1 << endl  << ";"<<";" << SDres2.x(0) << ";" << SDres2.x(1) << ";" << SDres2.y(0) << ";" << SDf_calls2 << ";" << SDg_calls2 << ";"
-				<< CGres2.x(0) << ";" << CGres2.x(1) << ";" << CGres2.y(0) << ";" << CGf_calls2 << ";" << CGg_calls2 << ";"
-				<< Newtonres2.x(0) << ";" << Newtonres2.x(1) << ";" << Newtonres2.y(0) << ";" << Newf_calls2 << ";" << 
-				Newg_calls2 << ";" << Newh_calls2 << endl;*/
 		/*
-		matrix x0(3, 1);
-		x0(0) = x0(1) = x0(2) = 0.0;
-		double krok = 0.01;
-		double epsilon = 1 * 10 ^ -5;
-		int Nmax = 20000;
-		solution solCG = CG(x0, krok, epsilon, Nmax);
-		cout << "Metoda CG z krokiem " << krok << endl;
-		cout << "x0(0)= " << solCG.x(0) << endl;
-		cout << "x0(1)= " << solCG.x(1) << endl;
-		cout << "x0(2)= " << solCG.x(2) << endl;
-		cout << "y= " << solCG.y(0) << endl;
-		cout << "f_calls: " << solution::f_calls << endl;
-		cout << "g_calls: " << solution::g_calls << endl;
-		cout << "H_calls: " << solution::H_calls << endl;
-		solution::clear_calls();
-		*/
+				ofstream f("lab5_res.csv");
+				double epsilon = 0.0001;
+				int Nmax = 1000, SDf_calls, SDg_calls, CGf_calls, CGg_calls, Newf_calls, Newg_calls, Newh_calls,
+							SDf_calls1, SDg_calls1, CGf_calls1, CGg_calls1, Newf_calls1, Newg_calls1, Newh_calls1,
+							SDf_calls2, SDg_calls2, CGf_calls2, CGg_calls2, Newf_calls2, Newg_calls2, Newh_calls2;
+				matrix limits(2, 2);
+				limits(0,0) = -10;
+				limits(0,1) = 10;
+				limits(1,0) = -10;
+				limits(1,1) = 10;
+				matrix x0(2, 1);
+
+
+				x0(0) = 7.24004;
+				x0(1) = -1.72375;
+
+
+				cout << "\nSD 0,05" << endl;
+				//h stalokrokowe 0,05
+				solution SDres = SD(x0, 0.05, epsilon, Nmax, limits);
+				SDf_calls = solution::f_calls;
+				SDg_calls = solution::g_calls;
+				solution::clear_calls();
+
+				cout << "CG 0,05" << endl;
+				//h stalokrokowe 0,05
+				solution CGres = CG(x0, 0.05, epsilon, Nmax, limits);
+				CGf_calls = solution::f_calls;
+				CGg_calls = solution::g_calls;
+				solution::clear_calls();
+
+				cout << "Newton 0,05" << endl;
+				//h stalokrokowe 0,05
+				solution Newtonres = Newton(x0, 0.05, epsilon, Nmax, limits);
+				Newf_calls = solution::f_calls;
+				Newg_calls = solution::g_calls;
+				Newh_calls = solution::H_calls;
+				solution::clear_calls();
+
+				cout << "SD 0,12" << endl;
+				//h stalokrokowe 0,12
+				solution SDres1 = SD(x0, 0.12, epsilon, Nmax, limits);
+				SDf_calls1 = solution::f_calls;
+				SDg_calls1 = solution::g_calls;
+				solution::clear_calls();
+
+				cout << "CG 0,12" << endl;
+				//h stalokrokowe 0,12
+				solution CGres1 = CG(x0, 0.12, epsilon, Nmax, limits);
+				CGf_calls1 = solution::f_calls;
+				CGg_calls1 = solution::g_calls;
+				solution::clear_calls();
+
+				cout << "Newton 0,12" << endl;
+				//h stalokrokowe 0,12
+				solution Newtonres1 = Newton(x0, 0.12, epsilon, Nmax, limits);
+				Newf_calls1 = solution::f_calls;
+				Newg_calls1 = solution::g_calls;
+				Newh_calls1 = solution::H_calls;
+				solution::clear_calls();
+
+				cout << "SD zm" << endl;
+				//h zmiennokrokowe - bedzie obliczone zlotym podzialem
+				solution SDres2 = SD(x0, -0.05, epsilon, Nmax, limits);
+				SDf_calls2 = solution::f_calls;
+				SDg_calls2 = solution::g_calls;
+				solution::clear_calls();
+
+				cout << "CG zm" << endl;
+				//h zmiennokrokowe
+				solution CGres2 = CG(x0, -0.05, epsilon, Nmax, limits);
+				CGf_calls2 = solution::f_calls;
+				CGg_calls2 = solution::g_calls;
+				solution::clear_calls();
+
+				cout << "Newton zm" << endl;
+				//h zmiennokrokowe
+				solution Newtonres2 = Newton(x0, -0.05, epsilon, Nmax, limits);
+				Newf_calls2 = solution::f_calls;
+				Newg_calls2 = solution::g_calls;
+				Newh_calls2 = solution::H_calls;
+				solution::clear_calls();
+				*/
+				/*f << x0(0)<<";"<<x0(1)<<";"<<SDres.x(0) << ";" << SDres.x(1) << ";" << SDres.y(0) << ";" << SDf_calls << ";" << SDg_calls << ";" << CGres.x(0)
+						<< ";" << CGres.x(1) << ";" << CGres.y(0) << ";" << CGf_calls << ";" << CGg_calls << ";" <<
+						Newtonres.x(0) << ";" << Newtonres.x(1) << ";" << Newtonres.y(0) << ";" << Newf_calls << ";" << Newg_calls
+						<< ";" << Newh_calls << endl<<  ";"<<";" << SDres1.x(0) << ";" << SDres1.x(1) << ";" << SDres1.y(0) << ";" << SDf_calls1 << ";" << SDg_calls1 << ";"
+						<< CGres1.x(0) << ";" << CGres1.x(1) << ";" << CGres1.y(0) << ";" << CGf_calls1 << ";" << CGg_calls1 << ";"
+						<< Newtonres1.x(0) << ";" << Newtonres1.x(1) << ";" << Newtonres1.y(0) << ";" << Newf_calls1 << ";" <<
+						Newg_calls1 << ";" << Newh_calls1 << endl  << ";"<<";" << SDres2.x(0) << ";" << SDres2.x(1) << ";" << SDres2.y(0) << ";" << SDf_calls2 << ";" << SDg_calls2 << ";"
+						<< CGres2.x(0) << ";" << CGres2.x(1) << ";" << CGres2.y(0) << ";" << CGf_calls2 << ";" << CGg_calls2 << ";"
+						<< Newtonres2.x(0) << ";" << Newtonres2.x(1) << ";" << Newtonres2.y(0) << ";" << Newf_calls2 << ";" <<
+						Newg_calls2 << ";" << Newh_calls2 << endl;*/
+						/*
+						matrix x0(3, 1);
+						x0(0) = x0(1) = x0(2) = 0.0;
+						double krok = 0.01;
+						double epsilon = 1 * 10 ^ -5;
+						int Nmax = 20000;
+						solution solCG = CG(x0, krok, epsilon, Nmax);
+						cout << "Metoda CG z krokiem " << krok << endl;
+						cout << "x0(0)= " << solCG.x(0) << endl;
+						cout << "x0(1)= " << solCG.x(1) << endl;
+						cout << "x0(2)= " << solCG.x(2) << endl;
+						cout << "y= " << solCG.y(0) << endl;
+						cout << "f_calls: " << solution::f_calls << endl;
+						cout << "g_calls: " << solution::g_calls << endl;
+						cout << "H_calls: " << solution::H_calls << endl;
+						solution::clear_calls();
+						*/
 		solution X;
 		matrix x0(3, 1);
 		x0(0) = -297135;
@@ -375,6 +375,7 @@ int main()
 		X.x = x0;
 		X.fit_fun();
 #elif LAB_NO == 6
+		/*
 		static default_random_engine generate(unsigned(time(nullptr)));
 		uniform_real_distribution<double> distribution(-10, 10);
 
@@ -393,23 +394,81 @@ int main()
 		matrix x0(2, 1);
 
 		for (int i = 0; i < 101; i++) {
-			/*x0(0) = distribution(generate);
-			x0(1) = distribution(generate);*/
+			//x0(0) = distribution(generate);
+			//x0(1) = distribution(generate);
 			start_point >> x0(0);
 			start_point >> x0(1);
 
 			solution powell = Powell(x0, epsilon, Nmax, limits);
-			f << x0(0) << ";" << x0(1) << ";" << powell.x(0) << ";" << powell.x(1) << ";" 
+			f << x0(0) << ";" << x0(1) << ";" << powell.x(0) << ";" << powell.x(1) << ";"
 				<< powell.y(0) << ";" << powell.y(1) << ";" << solution::f_calls << endl;
 			limits(0, 2) = limits(0, 2) + 0.01;
 			solution::clear_calls();
 		}
+		*/
+
+		// SYMULACJA
+		static default_random_engine generate(unsigned(time(nullptr)));
+		uniform_real_distribution<double> distribution(-10, 10);
+		random_device random;
+
+
+		ofstream f("lab6_res.csv");
+		ifstream start_point("x0.txt");
+		double epsilon = 0.0001, w = 0.0;
+		int Nmax = 1000;
+
+		matrix limits(2, 3);
+		limits(0, 0) = 0.2;
+		limits(0, 1) = 1;
+		limits(1, 0) = 0.01;
+		limits(1, 1) = 0.05;
+		limits(1, 2) = 0;
+		limits(0, 2) = 0; 
+
+		matrix x0(2, 1);
+		x0(0) = 0.2 + (double)rand() / RAND_MAX * (1.0 - 0.2);
+		x0(1) = 0.01 + (double)rand() / RAND_MAX * (0.05 - 0.01);
+		std::cout << "x0 " << x0(0) << " x1 " << x0(1) << std::endl;
+
+		solution result = Powell(x0, epsilon, Nmax, limits);
+		limits(0, 2) = 1;
+
+		x0(0) = 0.2 + (double)rand() / RAND_MAX * (1.0 - 0.2);
+		x0(1) = 0.01 + (double)rand() / RAND_MAX * (0.05 - 0.01);
+		solution result2 = Powell(x0, epsilon, Nmax, limits);
+
+		limits(0, 2) = 0;
+		ofstream file("symulacja.txt");
+
+
+		for (int i = 0; i < 101; i++) {
+
+			x0(0) = 0.8 * random() / random.max() + 0.2;
+			x0(1) = 0.04 * random() / random.max() + 0.01;
+			std::cout << x0(0) << " " << x0(1) << std::endl;
+
+			//start_point >> x0(0);
+			//start_point >> x0(1);
+			file << x0(0) * 1000.0 << " " << x0(1) * 1000.0 << " ";
+
+			solution powell = Powell(x0, epsilon, Nmax, limits);
+			file << powell.x(0) * 1000.0 << " " << powell.x(1) * 1000.0 << " " << powell.y(0)  << " " << powell.y(1) * 1000.0 << " " << solution::f_calls << std::endl;
+			f << x0(0) << ";" << x0(1) << ";" << powell.x(0) << ";" << powell.x(1) << ";"
+				<< powell.y(0) << ";" << powell.y(1) << ";" << solution::f_calls << endl;
+			limits(0, 2) = limits(0, 2) + 0.01;
+
+			solution::clear_calls();
+
+
 #endif
+		}
 	}
-	catch (char* EX_INFO)
-	{
-		std::cout << EX_INFO << endl;
-	}
-	system("pause");
-	return 0;
+		catch (char* EX_INFO)
+		{
+			std::cout << EX_INFO << endl;
+		}
+		system("pause");
+		return 0;
 }
+

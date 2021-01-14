@@ -203,6 +203,7 @@ void solution::fit_fun(matrix O)
 	}
 	f_calls++;
 #elif LAB_NO == 6
+	/*
 	int* n = get_size(O);
 	if (n[1] == 1) {
 		y = matrix(2, 1);
@@ -217,6 +218,44 @@ void solution::fit_fun(matrix O)
 		temp.x = O[0] + x * O[1];
 		temp.fit_fun();
 		y = O(0, 2) * temp.y(0) + (1 - O(0, 2)) * temp.y(1);
+	}
+	*/
+	int* n = get_size(O);
+	if (n[1] == 1) 
+	{
+		y = matrix(3, 1);
+		double ro = 7800.0, P = 1e3, E = 207e9;
+		/*masa*/
+		y(0) = ro * x(0) * M_PI * pow(x(1), 2) / 4.0;
+		/*ugiecie*/
+		y(1) = 64 * P * pow(x(0), 3) / (3 * E * M_PI * pow(x(1), 4));
+		/*naprezenie*/
+		y(2) = 32 * P * x(0) / (M_PI * pow(x(1), 3));
+		f_calls++;
+	}
+	else 
+	{
+		solution temp;
+		matrix yn;
+		yn = matrix(2, 1);
+		temp.x = O[0] + x * O[1];
+		temp.fit_fun();
+		double f1min = 0.440222, f2min = 4.20173e-05, f1max = 3.06354, f2max = 0.00203324;
+
+		//y = O(0, 2) * temp.y(0) + (1 - O(0, 2)) * temp.y(1);
+
+		yn(0) = (temp.y(0) - f1min) / (f1max - f1min);
+		yn(1) = (temp.y(1) - f2min) / (f2max - f2min);
+
+		y = O(0, 2) * yn(0) + (1 - O(0, 2)) * yn(1);
+
+		if (temp.y(1) > 0.005) {
+			y = y + pow(temp.y(1) - 0.005, 2);
+		}
+		if (temp.y(2) > 300000000) {
+			y = y + pow(temp.y(2) - 300e6, 2);
+		}
+
 	}
 #endif
 }
