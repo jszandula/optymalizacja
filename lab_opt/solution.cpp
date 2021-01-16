@@ -257,6 +257,10 @@ void solution::fit_fun(matrix O)
 		}
 
 	}
+#elif LAB_NO == 7
+	y = matrix(1, 1);
+	y(0) = pow(x(0), 2) + pow(x(1), 2) - cos(2.5 * 3.14 * x(0)) - cos(2.5 * 3.14 * x(1)) + 2;
+	++f_calls;
 #endif
 }
 
