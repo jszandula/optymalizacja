@@ -424,7 +424,7 @@ int main()
 		limits(1, 0) = 0.01;
 		limits(1, 1) = 0.05;
 		limits(1, 2) = 0;
-		limits(0, 2) = 0; 
+		limits(0, 2) = 0;
 
 		matrix x0(2, 1);
 		x0(0) = 0.2 + (double)rand() / RAND_MAX * (1.0 - 0.2);
@@ -453,7 +453,7 @@ int main()
 			file << x0(0) * 1000.0 << " " << x0(1) * 1000.0 << " ";
 
 			solution powell = Powell(x0, epsilon, Nmax, limits);
-			file << powell.x(0) * 1000.0 << " " << powell.x(1) * 1000.0 << " " << powell.y(0)  << " " << powell.y(1) * 1000.0 << " " << solution::f_calls << std::endl;
+			file << powell.x(0) * 1000.0 << " " << powell.x(1) * 1000.0 << " " << powell.y(0) << " " << powell.y(1) * 1000.0 << " " << solution::f_calls << std::endl;
 			f << x0(0) << ";" << x0(1) << ";" << powell.x(0) << ";" << powell.x(1) << ";"
 				<< powell.y(0) << ";" << powell.y(1) << ";" << solution::f_calls << endl;
 			limits(0, 2) = limits(0, 2) + 0.01;
@@ -461,64 +461,101 @@ int main()
 			solution::clear_calls();
 
 #elif LAB_NO == 7
-		matrix O(1, 1);
-		matrix limits(2, 2);
-		int Nmax = 10000;
-		double epsilon = 0.0001;
-		matrix x0(2, 1);
+			random_device random;
+			matrix O(1, 1);
+			matrix limits(2, 2);
+			int Nmax = 1000;
+			double epsilon = 0.0001;
+			matrix x0(2, 1);
 
-		limits(0, 0) = limits(1, 0) = -5;
-		limits(0, 1) = limits(1, 1) = 5;
+			limits(0, 0) = limits(1, 0) = -5;
+			limits(0, 1) = limits(1, 1) = 5;
+		
+			O(0, 0) = 0.01;
+			/*
+			ofstream ea_001("ea_001.csv");
+			ofstream ea_01("ea_01.csv");
+			ofstream ea_1("ea_1.csv");
+			ofstream ea_10("ea_10.csv");
+			ofstream ea_100("ea_100.csv");
+			ea_001 << "x*(0);x*(1);y*;f_calls;" << endl;
+			ea_01 << "x*(0);x*(1);y*;f_calls;" << endl;
+			ea_1 << "x*(0);x*(1);y*;f_calls;" << endl;
+			ea_10 << "x*(0);x*(1);y*;f_calls;" << endl;
+			ea_100 << "x*(0);x*(1);y*;f_calls;" << endl;
 
-		O(0, 0) = 0.01;
-		ofstream ea_001("ea_001.csv");
-		ofstream ea_01("ea_01.csv");
-		ofstream ea_1("ea_1.csv");
-		ofstream ea_10("ea_10.csv");
-		ofstream ea_100("ea_100.csv");
-		ea_001 << "x*(0);x*(1);y*;f_calls;" << endl;
-		ea_01 << "x*(0);x*(1);y*;f_calls;" << endl;
-		ea_1 << "x*(0);x*(1);y*;f_calls;" << endl;
-		ea_10 << "x*(0);x*(1);y*;f_calls;" << endl;
-		ea_100 << "x*(0);x*(1);y*;f_calls;" << endl;
+			for (int i = 0; i < 100; i++) {
+				solution opt_001 = EA(2, limits, epsilon, Nmax, O);
+				ea_001 << opt_001.x(0) << ";" << opt_001.x(1) << ";" << opt_001.y(0) << ";" << solution::f_calls << ";" << endl;
 
-		for (int i = 0; i < 100; i++) {
-			solution opt_001 = EA(2, limits, epsilon, Nmax, O);
-			ea_001 << opt_001.x(0) << ";" << opt_001.x(1) << ";" << opt_001.y(0) << ";" << solution::f_calls << ";" << endl;
+				solution::clear_calls();
 
-			solution::clear_calls();
+				O(0, 0) = 0.1;
+				solution opt_01 = EA(2, limits, epsilon, Nmax, O);
+				ea_01 << opt_01.x(0) << ";" << opt_01.x(1) << ";" << opt_01.y(0) << ";" << solution::f_calls << ";" << endl;
 
+				solution::clear_calls();
+
+				O(0, 0) = 1;
+				solution opt_1 = EA(2, limits, epsilon, Nmax, O);
+				ea_1 << opt_1.x(0) << ";" << opt_1.x(1) << ";" << opt_1.y(0) << ";" << solution::f_calls << ";" << endl;
+
+				solution::clear_calls();
+
+				O(0, 0) = 10;
+				solution opt_10 = EA(2, limits, epsilon, Nmax, O);
+				ea_10 << opt_10.x(0) << ";" << opt_10.x(1) << ";" << opt_10.y(0) << ";" << solution::f_calls << ";" << endl;
+
+				solution::clear_calls();
+
+				O(0, 0) = 100;
+				solution opt_100 = EA(2, limits, epsilon, Nmax, O);
+				ea_100 << opt_100.x(0) << ";" << opt_100.x(1) << ";" << opt_100.y(0) << ";" << solution::f_calls << ";" << endl;
+
+				solution::clear_calls();
+			}
+			*/
+			/*
 			O(0, 0) = 0.1;
 			solution opt_01 = EA(2, limits, epsilon, Nmax, O);
-			ea_01 << opt_01.x(0) << ";" << opt_01.x(1) << ";" << opt_01.y(0) << ";" << solution::f_calls << ";" << endl;
+			std::cout << opt_01.x(0) << ";" << opt_01.x(1) << ";" << opt_01.y(0) << ";" << solution::f_calls << ";" << std::endl;
+		*/
+			
 
-			solution::clear_calls();
+		
 
-			O(0, 0) = 1;
-			solution opt_1 = EA(2, limits, epsilon, Nmax, O);
-			ea_1 << opt_1.x(0) << ";" << opt_1.x(1) << ";" << opt_1.y(0) << ";" << solution::f_calls << ";" << endl;
+		x0(0) = 1.09886;
+		x0(1) = 1.75566;
 
-			solution::clear_calls();
+		limits(0, 0) = limits(1, 0) = 0.1;
+		limits(0, 1) = limits(1, 1) = 3;
 
-			O(0, 0) = 10;
-			solution opt_10 = EA(2, limits, epsilon, Nmax, O);
-			ea_10 << opt_10.x(0) << ";" << opt_10.x(1) << ";" << opt_10.y(0) << ";" << solution::f_calls << ";" << endl;
+		matrix Y1(4, 1);
+		matrix* Y = solve_ode(0, 0.1, 100, Y1, x0);
+		fstream sym_x1;
+		fstream sym_x2;
 
-			solution::clear_calls();
+		sym_x1.open("symx1.txt", ios::out);
+		sym_x2.open("symx2.txt", ios::out);
+		for (int i = 0; i < 1001; i++) {
+			sym_x1 << Y[1](i, 0) << endl;
+			sym_x2 << Y[1](i, 2) << endl;
 
-			O(0, 0) = 100;
-			solution opt_100 = EA(2, limits, epsilon, Nmax, O);
-			ea_100 << opt_100.x(0) << ";" << opt_100.x(1) << ";" << opt_100.y(0) << ";" << solution::f_calls << ";" << endl;
+		}
+		solution::clear_calls();
 
-			solution::clear_calls();
+		
+
+
 #endif
-		}
+
 	}
-		catch (char* EX_INFO)
-		{
-			std::cout << EX_INFO << endl;
-		}
-		system("pause");
-		return 0;
+	catch (char* EX_INFO)
+	{
+		std::cout << EX_INFO << endl;
+	}
+	system("pause");
+	return 0;
 }
+
 

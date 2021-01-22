@@ -123,6 +123,16 @@ matrix diff(double t, const matrix& Y, matrix P)
 	dY(3) = (-(m * g) - Dy - Fmy) / m;
 
 	return dY;
+#elif LAB_NO ==7
+	double m1 = 5.0, m2 = 5.0, k1 = 1.0, k2 = 1.0, F = 1.0;
+	double b1 = P(0, 0), b2 = P(1, 0);
+	matrix dY(4, 1);
+	dY(0) = Y(1);
+	dY(1) = (-b1 * Y(1) - b2 * (Y(1) - Y(3)) - k1 * Y(0) - k2 * (Y(0) - Y(2))) / m1;
+	dY(2) = Y(3);
+	dY(3) = (F + b2 * (Y(1) - Y(3)) + k2 * (Y(0) - Y(2))) / m2;
+	return dY;
+
 
 #else
 	matrix dY;
